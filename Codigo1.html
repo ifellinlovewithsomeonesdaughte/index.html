@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tiempo desde que me gustaste</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+  body {
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    overflow: hidden;
+  }
+
+  .container {
+    background: rgba(0,0,0,0.3);
+    padding: 30px 50px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    animation: fadeIn 2s ease forwards;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .countdown {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .time-box {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 20px 25px;
+    border-radius: 15px;
+    min-width: 80px;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    animation: pulse 1.5s infinite;
+  }
+
+  .time-box span {
+    display: block;
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .label {
+    margin-top: 5px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    }
+    50% {
+      transform: scale(1.1);
+      box-shadow: 0 6px 25px rgba(255, 255, 255, 0.4);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(-20px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Tiempo desde que me gustaste</h1>
+  <div class="countdown">
+    <div class="time-box">
+      <span id="days">00</span>
+      <div class="label">Días</div>
+    </div>
+    <div class="time-box">
+      <span id="hours">00</span>
+      <div class="label">Horas</div>
+    </div>
+    <div class="time-box">
+      <span id="minutes">00</span>
+      <div class="label">Minutos</div>
+    </div>
+    <div class="time-box">
+      <span id="seconds">00</span>
+      <div class="label">Segundos</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Fecha base: 26 de agosto de 2024 a las 7:00 AM
+  const startDate = new Date('2024-08-26T07:00:00');
+
+  const daysEl = document.getElementById('days');
+  const hoursEl = document.getElementById('hours');
+  const minutesEl = document.getElementById('minutes');
+  const secondsEl = document.getElementById('seconds');
+
+  function updateCountUp() {
+    const now = new Date();
+    let diff = now - startDate;
+
+    if (diff < 0) {
+      // Si aún no ha llegado la fecha, mostrar 00
+      daysEl.textContent = '00';
+      hoursEl.textContent = '00';
+      minutesEl.textContent = '00';
+      secondsEl.textContent = '00';
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    daysEl.textContent = days.toString().padStart(2, '0');
+    hoursEl.textContent = hours.toString().padStart(2, '0');
+    minutesEl.textContent = minutes.toString().padStart(2, '0');
+    secondsEl.textContent = seconds.toString().padStart(2, '0');
+  }
+
+  updateCountUp();
+  setInterval(updateCountUp, 1000);
+</script>
+
+</body
